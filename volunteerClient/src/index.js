@@ -1,17 +1,29 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
+import { BrowserRouter, Switch, Route } from 'react-router-dom';
+
 
 import Card from './Card';
+import Homepage from './Homepage';
+
 class App extends React.Component {
   constructor(props) {
     super(props);
   }
   render(){
     return(
-      <div>
-          <Card/>
-      </div>
+    
+      <BrowserRouter>
+        <Switch>
+        <Route path="/event/available/">
+            <Card/>
+          </Route>
+          <Route path="/">
+            <Homepage/>
+          </Route>
+        </Switch>
+      </BrowserRouter>
     )
   }
 }
