@@ -5,12 +5,12 @@ import { BrowserRouter, Switch, Route } from 'react-router-dom';
 
 
 import Card from './Card';
-import Homepage from './Homepage';
+import Homepage from './HomePage1';
 
 class App extends React.Component {
-  constructor(props) {
-    super(props);
-  }
+  // constructor(props) {
+  //   super(props);
+  // }
   render(){
     return(
     
