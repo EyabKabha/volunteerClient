@@ -13,11 +13,11 @@ export default class ExplainCard extends Component {
                 <div className="col-8">
                     <div className="row">
                         <div className="col-2">
-                            {/* <Image src={logo} roundedCircle /> */}
+                             <Image src={this.props.src} id="eventlogo"/>
                         </div>
                         <div className="col-6">
-                            <h1>Events</h1>
-                            <p>Events are created by anyone who needs voulnteers for the job.</p>
+                            <h1>{this.props.header}</h1>
+                            <p>{this.props.desc}</p>
                         </div>
                     </div>
                 </div>
