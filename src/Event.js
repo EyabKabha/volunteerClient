@@ -4,6 +4,8 @@ import TextField from '@material-ui/core/TextField';
 import Autocomplete from '@material-ui/lab/Autocomplete';
 import fetcher from './api/fetcher';
 import Popup from './Popup';
+import { Redirect } from 'react-router';
+
 class Event extends React.Component {
     constructor(props) {
         super(props);
@@ -22,7 +24,11 @@ class Event extends React.Component {
             addModalShow: false,
             msgEvent: '',
             eventPopUp: false,
+            onClickBackEvent:false,
         }
+    }
+    backEvent = () => {
+        this.setState({onClickBackEvent:true})
     }
     onChangeHandler = event => {
         const target = event.target;
@@ -32,10 +38,10 @@ class Event extends React.Component {
     }
     onClickAddEvent = async () => {
         try {
-            const  {data}  = await fetcher.post('/events', this.state.dataEvent);
-            if(data){
-                this.setState({ addModalShow: true, msgEvent: data,eventPopUp:true })
-                console.log(this.state.addModalShow,this.state.msgEvent)
+            const { data } = await fetcher.post('/events', this.state.dataEvent);
+            if (data) {
+                this.setState({ addModalShow: true, msgEvent: data, eventPopUp: true })
+                console.log(this.state.addModalShow, this.state.msgEvent)
             }
 
         } catch (error) {
@@ -120,12 +126,16 @@ class Event extends React.Component {
                     </div>
                     <div className="col-md-10 mt-3">
                         <button type="button" class="btn btn-warning" onClick={this.onClickAddEvent}>Add Event</button>
+                        <button type="button" class="btn btn-warning ml-5" onClick={this.backEvent}>Back</button>
+
                     </div>
+                   
                     {this.state.addModalShow && <Popup show={this.state.addModalShow}
                         onHide={() => false}
                         msgEvent={this.state.msgEvent}
                         eventPopUp={this.state.eventPopUp} />}
                 </div>
+                {this.state.onClickBackEvent && <Redirect to="/" />}
             </div>
 
 

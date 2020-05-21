@@ -13,7 +13,12 @@ class Maincard extends React.Component {
       dataEvents: [],
       images: ['images/street.jpg'],
       newEventClicked: false,
-      city: '',
+      onClickSearch: false,
+      onClickBackNewEvent: false,
+      dataAfterFilter: [],
+      searchInput: {
+        city: '',
+      }
     }
   }
 
@@ -26,10 +31,32 @@ class Maincard extends React.Component {
 
     }
   }
+
+  onClickSearch = async () => {
+    try {
+      const { data } = await fetcher.get(`/events?city=${this.state.searchInput.city}`);
+      this.setState({ onClickSearch: true, dataAfterFilter: data });
+
+    } catch (error) {
+
+    }
+
+  }
+  backNewEvent = () => {
+    this.setState({ onClickBackNewEvent: true })
+  }
   newEvent = () => {
     this.setState({ newEventClicked: true })
   }
+  onChangeHandler = event => {
+    const target = event.target;
+    const value = target.type === 'checkbox' ? target.checked : target.value;
+    const savedData = { ...this.state.searchInput, [target.name]: value };
+    this.setState({ searchInput: savedData });
+  }
+
   render() {
+
     const { cities } = this.context;
     return (
       <div>
@@ -54,46 +81,86 @@ class Maincard extends React.Component {
             <div class="col-sm mb-2">
               <Autocomplete
                 id="combo-box-demo"
-                disableClearable={true}
-                wrapperStyle={{ position: 'relative', display: 'inline-block', color: 'red' }}
                 options={cities}
                 getOptionLabel={(city) => city.name}
                 onSelect={this.onChangeHandler}
-                noOptionsText={'ישוב לא קיים'}
-                renderInput={(params) => <TextField autocomplete="on" {...params} size='small' className="form-control mb-2" variant="outlined" name="city" placeholder="Search By City" value={this.state.city} onChange={this.onChangeHandler} />} />
-              <select className="form-control mb-2" id="inputCar" name="vehicle_id">
-                <option selected value="">Search by Type</option>
-              </select>
+                renderInput={(params) => <TextField autocomplete="on" {...params} size='small' className="form-control mb-2" variant="outlined" name="city" placeholder="Search By City" value={this.state.searchInput.city} onChange={this.onChangeHandler} />} />
+
+              <button type="button" class="btn btn-warning" onClick={this.onClickSearch}>Search</button>
               <div>
-              <button type="button" class="btn btn-warning" onClick={this.newEvent}>Search</button>
-            </div>
+              </div>
+              <div>
+                <button type="button" class="btn btn-warning mt-2" onClick={this.backNewEvent}>Back</button>
+              </div>
             </div>
             {this.state.newEventClicked && <Redirect to="/create/event/" />}
+            {this.state.onClickBackNewEvent && <Redirect to="/" />}
 
           </div>
         </div>
 
         {
-          this.state.dataEvents.map((event, index) => (
-            <Cards
-              id={event.id}
-              name={event.name}
-              eventDesc={event.description}
-              location={event.location}
-              creation={event.creation_date}
-              start_date={event.start_date}
-              end_date={event.end_date}
-              description={event.description}
-              participents={event.participents}
-              participents_limit={event.participents_limit}
-              start_time={event.start_time}
-              image={this.state.images[index]}
-              first_name={event.user.first_name}
-             
-              phoneNumber={event.user.phone}
-            />
-          ))
+          this.state.searchInput.city === '' ?
+            this.state.dataEvents.map((event, index) => (
+              <Cards
+                id={event.id}
+                name={event.name}
+                eventDesc={event.description}
+                location={event.location}
+                creation={event.creation_date}
+                start_date={event.start_date}
+                end_date={event.end_date}
+                description={event.description}
+                participents={event.participents}
+                participents_limit={event.participents_limit}
+                start_time={event.start_time}
+                image={this.state.images[index]}
+                first_name={event.user.first_name}
+                phoneNumber={event.user.phone}
+              />
 
+            ))
+            :
+            this.state.onClickSearch ?
+              this.state.dataAfterFilter.map((event, index) => (
+                <Cards
+                  id={event.id}
+                  name={event.name}
+                  eventDesc={event.description}
+                  location={event.location}
+                  creation={event.creation_date}
+                  start_date={event.start_date}
+                  end_date={event.end_date}
+                  description={event.description}
+                  participents={event.participents}
+                  participents_limit={event.participents_limit}
+                  start_time={event.start_time}
+                  image={this.state.images[index]}
+                  first_name={event.user.first_name}
+
+                  phoneNumber={event.user.phone}
+                />
+              ))
+              :
+              this.state.dataEvents.map((event, index) => (
+                <Cards
+                  id={event.id}
+                  name={event.name}
+                  eventDesc={event.description}
+                  location={event.location}
+                  creation={event.creation_date}
+                  start_date={event.start_date}
+                  end_date={event.end_date}
+                  description={event.description}
+                  participents={event.participents}
+                  participents_limit={event.participents_limit}
+                  start_time={event.start_time}
+                  image={this.state.images[index]}
+                  first_name={event.user.first_name}
+                  phoneNumber={event.user.phone}
+                />
+
+              ))
         }
       </div>
     )
