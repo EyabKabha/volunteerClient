@@ -1,6 +1,7 @@
 import React from 'react';
 import { Redirect } from 'react-router';
 import fetcher from './api/fetcher';
+import { setUser, getUser } from './api/auth';
 export default class Login extends React.Component {
     constructor(props) {
         super(props);
@@ -29,6 +30,7 @@ export default class Login extends React.Component {
         try {
             const {data} = await fetcher.post('/login',this.state.dataLogin)
             if(data){
+                setUser(data)
                 this.setState({eventsAvalible:true})
             }
         } catch (error) {
@@ -40,7 +42,6 @@ export default class Login extends React.Component {
     render() {
         return (
             <div className="container">
-
                 <div className="row">
                     <div className="col-md-3">
 
@@ -59,7 +60,7 @@ export default class Login extends React.Component {
                         <button type="button" className="btn btn-outline-primary btn-block" onClick={this.onClickSignUp}>Sign up</button>
 
                         {this.state.signUpClick && <Redirect to="/signup" />}
-                        {this.state.eventsAvalible && <Redirect to="/event/available/"/>}
+                        {this.state.eventsAvalible && <Redirect to="/"/>}
 
                     </div>
                 </div>

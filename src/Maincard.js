@@ -75,15 +75,21 @@ class Maincard extends React.Component {
 
         {
           this.state.dataEvents.map((event, index) => (
-
             <Cards
+              id={event.id}
               name={event.name}
               eventDesc={event.description}
               location={event.location}
               creation={event.creation_date}
               start_date={event.start_date}
+              end_date={event.end_date}
+              description={event.description}
+              participents={event.participents}
+              participents_limit={event.participents_limit}
               start_time={event.start_time}
               image={this.state.images[index]}
+              first_name={event.user.first_name}
+             
               phoneNumber={event.user.phone}
             />
           ))

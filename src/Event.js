@@ -3,7 +3,7 @@ import { CityContext } from './CityContext';
 import TextField from '@material-ui/core/TextField';
 import Autocomplete from '@material-ui/lab/Autocomplete';
 import fetcher from './api/fetcher';
-
+import Popup from './Popup';
 class Event extends React.Component {
     constructor(props) {
         super(props);
@@ -17,9 +17,11 @@ class Event extends React.Component {
                 startDate: '',
                 endDate: '',
                 participentsLimit: '',
-                type: ''
-
-            }
+                type: '',
+            },
+            addModalShow: false,
+            msgEvent: '',
+            eventPopUp: false,
         }
     }
     onChangeHandler = event => {
@@ -28,12 +30,16 @@ class Event extends React.Component {
         const savedData = { ...this.state.dataEvent, [target.name]: value };
         this.setState({ dataEvent: savedData });
     }
-    onClickAddEvent =async ()=>{
+    onClickAddEvent = async () => {
         try {
-            const {data} = fetcher.post('/events',this.state.dataEvent);
-            console.log(data)
+            const  {data}  = await fetcher.post('/events', this.state.dataEvent);
+            if(data){
+                this.setState({ addModalShow: true, msgEvent: data,eventPopUp:true })
+                console.log(this.state.addModalShow,this.state.msgEvent)
+            }
+
         } catch (error) {
-            
+
         }
     }
     render() {
@@ -54,33 +60,33 @@ class Event extends React.Component {
                 <div className="row ml-3 mt-3 mr-3">
                     <div className="col-md-5 col-sm-12">
                         <label htmlFor="inputFromDate" className="d-flex align-items-right">From Date</label>
-                        <input type="date" className="form-control mb-2 col-sm-12" date id="inputFromDate" name="startDate" max="9999-12-31" onChange={this.onChangeHandler}value={this.state.dataEvent.startDate} />
+                        <input type="date" className="form-control mb-2 col-sm-12" date id="inputFromDate" name="startDate" max="9999-12-31" onChange={this.onChangeHandler} value={this.state.dataEvent.startDate} />
                     </div>
 
                     <div className="col-md-5">
                         <label htmlFor="inputFromDate" className="d-flex align-items-right">Until Date</label>
-                        <input type="date" className="form-control mb-2" date id="inputFromDate" name="endDate" max="9999-12-31" onChange={this.onChangeHandler} value={this.state.dataEvent.endDate}/>
+                        <input type="date" className="form-control mb-2" date id="inputFromDate" name="endDate" max="9999-12-31" onChange={this.onChangeHandler} value={this.state.dataEvent.endDate} />
                     </div>
 
                     <div className="col-md-5">
                         <label htmlFor="inputExitTime" className="d-flex align-items-right">From time</label>
-                        <input type="time" className="form-control mb-2" id="inputExitTime" name="startTime" onChange={this.onChangeHandler} value={this.state.dataEvent.startTime}/>
+                        <input type="time" className="form-control mb-2" id="inputExitTime" name="startTime" onChange={this.onChangeHandler} value={this.state.dataEvent.startTime} />
                     </div>
 
                     <div className="col-md-5">
                         <label htmlFor="inputReturnTime" className="d-flex align-items-right">Until Time</label>
-                        <input type="time" className="form-control mb-2" id="inputReturnTime" name="endTime" onChange={this.onChangeHandler} value={this.state.dataEvent.endTime}/>
+                        <input type="time" className="form-control mb-2" id="inputReturnTime" name="endTime" onChange={this.onChangeHandler} value={this.state.dataEvent.endTime} />
                     </div>
                     <div className="col-md-5 mb-2">
                         <label htmlFor="inputReturnTime" className="d-flex align-items-right">Type</label>
-                        <select className="form-control" id="inputCar" name="type" onChange={this.onChangeHandler}value={this.state.dataEvent.type} >
+                        <select className="form-control" id="inputCar" name="type" onChange={this.onChangeHandler} value={this.state.dataEvent.type} >
                             <option selected value="">Types of Volunteers</option>
                         </select>
                     </div>
 
                     <div className="col-md-5">
                         <label htmlFor="inputReturnTime" className="d-flex align-items-right">Name</label>
-                        <input type="text" className="form-control mb-2" id="inputReturnTime" name="name" onChange={this.onChangeHandler} value={this.state.dataEvent.name}/>
+                        <input type="text" className="form-control mb-2" id="inputReturnTime" name="name" onChange={this.onChangeHandler} value={this.state.dataEvent.name} />
                     </div>
                     <div className="col-md-10">
                         <label htmlFor="inputReturnTime" className="d-flex align-items-right">Note</label>
@@ -107,7 +113,7 @@ class Event extends React.Component {
                             onSelect={this.onChangeHandler}
                             renderInput={(params) => <TextField autocomplete="on" {...params} size='small' className="form-control" variant="outlined" name="location" placeholder="City" value={this.state.dataEvent.location} onChange={this.onChangeHandler} />} />
                     </div>
-              
+
                     <div className="col-md-5">
                         <label htmlFor="inputReturnTime" className="d-flex align-items-right">Limit</label>
                         <input type="text" className="form-control mb-2" id="inputReturnTime" name="participentsLimit" onChange={this.onChangeHandler} value={this.state.dataEvent.participentsLimit} />
@@ -115,7 +121,10 @@ class Event extends React.Component {
                     <div className="col-md-10 mt-3">
                         <button type="button" class="btn btn-warning" onClick={this.onClickAddEvent}>Add Event</button>
                     </div>
-
+                    {this.state.addModalShow && <Popup show={this.state.addModalShow}
+                        onHide={() => false}
+                        msgEvent={this.state.msgEvent}
+                        eventPopUp={this.state.eventPopUp} />}
                 </div>
             </div>
 
