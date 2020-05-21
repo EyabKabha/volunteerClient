@@ -4,13 +4,18 @@ import Card from './ExplainCard';
 import { Button, Navbar, Nav, NavDropdown, Form, FormControl } from 'react-bootstrap';
 import Footer from './Footer';
 import './Styling/Home.css';
-
+import { setUser, getUser } from './api/auth';
 export default class Homepage extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
             btnEvent: false,
             btnNewEvent: false,
+            personalInfo: {
+                firstname: '',
+                lastname: '',
+            },
+            isLogin: false,
         }
     }
     onClickBtn = () => {
@@ -19,6 +24,16 @@ export default class Homepage extends React.Component {
     }
     onClickEvent = () => {
         this.setState({ btnNewEvent: true })
+    }
+    componentDidMount = async () => {
+        var person = JSON.parse(getUser())
+        if(person===null){
+            
+        }else{
+            await this.setState({ personalInfo: person, isLogin: true })
+            console.log(this.state.personalInfo)
+
+        }
     }
     render() {
         return (
@@ -33,12 +48,17 @@ export default class Homepage extends React.Component {
                                 <Nav.Link href="#features">Dashboard</Nav.Link>
                                 <Nav.Link href="#pricing">My events</Nav.Link>
                             </Nav>
-                            <Form inline>
-                                {/* <FormControl type="text" placeholder="Search" className="mr-sm-2" /> */}
-                                <Button href="/login" variant="outline-info">Log In</Button>&nbsp;&nbsp;
-                                <Navbar.Text> <small>or</small></Navbar.Text>
-                                <Nav.Link href="/signup/">SignUp</Nav.Link>
-                            </Form>
+
+
+
+                            {this.state.isLogin ? <h1 style={{ color: 'white' }}> {` Welcome ${this.state.personalInfo.firstname} ${this.state.personalInfo.lastname}`} </h1>
+                                : <Form inline>
+                                    <Button href="/login" variant="outline-info">Log In</Button>&nbsp;&nbsp;
+                                    <Navbar.Text> <small>or</small></Navbar.Text>
+                                    <Nav.Link href="/signup/">SignUp</Nav.Link>
+                                </Form>
+                            }
+
                         </Navbar>
                     </div>
                 </div>
@@ -55,7 +75,7 @@ export default class Homepage extends React.Component {
                 <Footer />
                 {this.state.btnEvent && <Redirect to='/event/available' />}
                 {this.state.btnNewEvent && <Redirect to='/create/event/' />}
-            </div>
+            </div >
 
         )
     }
