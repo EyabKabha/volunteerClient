@@ -50,7 +50,7 @@ export default class extends React.Component {
                                     <div class="card-body">
                                         <div class="row">
                                             <div class="col-md-6">
-                                                <p class="card-title">Event name : {this.props.name}.</p>
+                                                <p class="card-title">Event name : {this.props.description}.</p>
                                                 <p class="card-text">Location : {this.props.location}.</p>
                                                 <small class="text-primary font-weight-bold">Date : from {this.props.start_date} to {this.props.end_date}</small>
                                             </div>

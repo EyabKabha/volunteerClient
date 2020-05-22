@@ -6,6 +6,7 @@ import fetcher from './api/fetcher';
 import Popup from './Popup';
 import './Styling/Allevents.css';
 import { Redirect } from 'react-router';
+import NavbarWizard from './NavbarWizard';
 
 class Event extends React.Component {
     constructor(props) {
@@ -25,11 +26,11 @@ class Event extends React.Component {
             addModalShow: false,
             msgEvent: '',
             eventPopUp: false,
-            onClickBackEvent:false,
+            onClickBackEvent: false,
         }
     }
     backEvent = () => {
-        this.setState({onClickBackEvent:true})
+        this.setState({ onClickBackEvent: true })
     }
     onChangeHandler = event => {
         const target = event.target;
@@ -53,11 +54,12 @@ class Event extends React.Component {
         const { cities } = this.context;
         return (
             <div div="container">
+                <NavbarWizard></NavbarWizard>
                 <div className="row ml-3">
                     <div className="col-md-2">
 
                     </div>
-                    <div className="col-md-6">
+                    <div className="col-md-6 mt-4">
                         <h1 className="text-center">Create new event</h1>
                     </div>
                     <div className="col-md-3">
@@ -71,8 +73,8 @@ class Event extends React.Component {
                     </div>
 
                     <div className="col-md-5">
-                        <label htmlFor="inputFromDate" className="d-flex align-items-right">Until Date</label>
-                        <input type="date" className="form-control mb-2" date id="inputFromDate" name="endDate" max="9999-12-31" onChange={this.onChangeHandler} value={this.state.dataEvent.endDate} />
+                        <label htmlFor="inputFromDateFinsih" className="d-flex align-items-right">Until Date</label>
+                        <input type="date" className="form-control mb-2" date id="inputFromDateFinsih" name="endDate" max="9999-12-31" onChange={this.onChangeHandler} value={this.state.dataEvent.endDate} />
                     </div>
 
                     <div className="col-md-5">
@@ -81,24 +83,34 @@ class Event extends React.Component {
                     </div>
 
                     <div className="col-md-5">
-                        <label htmlFor="inputReturnTime" className="d-flex align-items-right">Until Time</label>
-                        <input type="time" className="form-control mb-2" id="inputReturnTime" name="endTime" onChange={this.onChangeHandler} value={this.state.dataEvent.endTime} />
+                        <label htmlFor="inputReturnTime2" className="d-flex align-items-right">Until Time</label>
+                        <input type="time" className="form-control mb-2" id="inputReturnTime2" name="endTime" onChange={this.onChangeHandler} value={this.state.dataEvent.endTime} />
                     </div>
                     <div className="col-md-5 mb-2">
-                        <label htmlFor="inputReturnTime" className="d-flex align-items-right">Type</label>
-                        <select className="form-control" id="inputCar" name="type" onChange={this.onChangeHandler} value={this.state.dataEvent.type} >
-                            <option selected value="">Types of Volunteers</option>
+                        <label htmlFor="inputReturnVul" className="d-flex align-items-right">Volunteering type</label>
+                        <select className="form-control" id="inputReturnVul" name="type" onChange={this.onChangeHandler} value={this.state.dataEvent.type} >
+                           
+                            <option value="Undraising event">Undraising event</option>
+                            <option value="Goods donation">Goods donation</option>
+                            <option value="Hospital visits">Hospital visits</option>
+                            <option value="Orphanage activities">Orphanage activities</option>
+                            <option value="Cleaning">cleaning</option>
+                            <option value="Sanitizing">Sanitizing</option>
+                            <option value="Help eldery">Help eldery</option>
+                            <option value="Help friend">Help friend</option>
+                            <option value="Environment greening">Environment greening</option>
+                            <option value="Other">Other..</option>
                         </select>
                     </div>
 
                     <div className="col-md-5">
-                        <label htmlFor="inputReturnTime" className="d-flex align-items-right">Name</label>
-                        <input type="text" className="form-control mb-2" id="inputReturnTime" name="name" onChange={this.onChangeHandler} value={this.state.dataEvent.name} />
+                        <label htmlFor="nameN" className="d-flex align-items-right">Name</label>
+                        <input type="text" className="form-control mb-2" id="nameN" name="name" onChange={this.onChangeHandler} value={this.state.dataEvent.name} />
                     </div>
                     <div className="col-md-10">
-                        <label htmlFor="inputReturnTime" className="d-flex align-items-right">Note</label>
+                        <label htmlFor="desc" className="d-flex align-items-right">Description</label>
                         <textarea
-                            id="description"
+                            id="desc"
                             name="description"
                             className="form-control mb-2"
                             rows="3"
@@ -110,9 +122,9 @@ class Event extends React.Component {
 
                     </div>
                     <div className="col-md-5">
-                        <label htmlFor="inputReturnTime" className="d-flex align-items-right">Location</label>
+                        <label htmlFor="inputReturnTimeLocation" className="d-flex align-items-right">Location</label>
                         <Autocomplete
-                            id="combo-box-demo"
+                            id="inputReturnTimeLocation"
                             disableClearable={true}
                             wrapperStyle={{ position: 'relative', display: 'inline-block', color: 'red' }}
                             options={cities}
@@ -122,15 +134,15 @@ class Event extends React.Component {
                     </div>
 
                     <div className="col-md-5">
-                        <label htmlFor="inputReturnTime" className="d-flex align-items-right">Limit</label>
-                        <input type="text" className="form-control mb-2" id="inputReturnTime" name="participentsLimit" onChange={this.onChangeHandler} value={this.state.dataEvent.participentsLimit} />
+                        <label htmlFor="inputReturnTimeLimit" className="d-flex align-items-right">Limit</label>
+                        <input type="text" className="form-control mb-2" id="inputReturnTimeLimit" name="participentsLimit" onChange={this.onChangeHandler} value={this.state.dataEvent.participentsLimit} />
                     </div>
                     <div className="col-md-10 mt-3">
                         <button id="newbtn" type="button" class="btn btn-warning" onClick={this.onClickAddEvent}>Add Event</button>
                         <button type="button" id="newbtn" class="btn btn-warning ml-5" onClick={this.backEvent}>Back</button>
 
                     </div>
-                   
+
                     {this.state.addModalShow && <Popup show={this.state.addModalShow}
                         onHide={() => false}
                         msgEvent={this.state.msgEvent}
@@ -138,9 +150,6 @@ class Event extends React.Component {
                 </div>
                 {this.state.onClickBackEvent && <Redirect to="/" />}
             </div>
-
-
-
         )
     }
 }
