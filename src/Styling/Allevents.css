@@ -1,0 +1,26 @@
+#addeventbtn {
+    background-color: white;
+    color: #0f4c81;
+    border-color: #0f4c81;
+}
+
+#backbtn {
+    background-color: #0f4c81;
+    color: white;
+}
+
+#searchbtn {
+    background-color: #0f4c81;
+    color: white;
+    border-color: #0f4c81;
+}
+
+#joinbtn {
+    height: 50%;
+}
+
+#newbtn {
+    background-color: #0f4c81;
+    color: white;
+    border-color: #0f4c81;
+}

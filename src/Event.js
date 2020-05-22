@@ -4,6 +4,7 @@ import TextField from '@material-ui/core/TextField';
 import Autocomplete from '@material-ui/lab/Autocomplete';
 import fetcher from './api/fetcher';
 import Popup from './Popup';
+import './Styling/Allevents.css';
 import { Redirect } from 'react-router';
 
 class Event extends React.Component {
@@ -125,8 +126,8 @@ class Event extends React.Component {
                         <input type="text" className="form-control mb-2" id="inputReturnTime" name="participentsLimit" onChange={this.onChangeHandler} value={this.state.dataEvent.participentsLimit} />
                     </div>
                     <div className="col-md-10 mt-3">
-                        <button type="button" class="btn btn-warning" onClick={this.onClickAddEvent}>Add Event</button>
-                        <button type="button" class="btn btn-warning ml-5" onClick={this.backEvent}>Back</button>
+                        <button id="newbtn" type="button" class="btn btn-warning" onClick={this.onClickAddEvent}>Add Event</button>
+                        <button type="button" id="newbtn" class="btn btn-warning ml-5" onClick={this.backEvent}>Back</button>
 
                     </div>
                    

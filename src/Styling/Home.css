@@ -1,35 +1,54 @@
 #container {
-padding: 0;
+  padding: 0;
 }
 
-#Alleventsbtn{
-    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
-    font-size: xx-large;
-    font-weight: bold;
-    width: 100%;
-    height: 300px;
+.color-nav {
+  background-color: #0f4c81;
 }
 
-#Createeventbtn{
-    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
-    font-size: xx-large;
-    font-weight: bold;
-    width: 100%;
-    height: 300px;
+#Alleventsbtn {
+  margin-left: 40%;
+  font-family: Cambria, Cochin, Georgia, Times, "Times New Roman", serif;
+  font-size: xx-large;
+  font-weight: bold;
+  width: 60%;
+  height: 200px;
+  border-radius: 500px;
+  background-color: #0f4c81;
+  /* background-image: url('/public/event.jpg'); */
+}
+
+#Alleventsbtn :hover{
+    background-color: white;
+    color: #0f4c81;
+}
+
+#Createeventbtn {
+  font-family: Cambria, Cochin, Georgia, Times, "Times New Roman", serif;
+  font-size: xx-large;
+  font-weight: bold;
+  width: 60%;
+  height: 200px;
+  border-radius: 500px;
+  background-color: white;
+  color: #0f4c81;
+  border-color: #0f4c81;
 }
 
 #eventlogo {
-    width: 60px;
-    height: 60px;
+  width: 60px;
+  height: 60px;
 }
 
 #footer {
-    /* margin-top: 50px;
+  /* margin-top: 50px;
     padding-top: 20px; */
-    text-align: center;
-    color: white;
-    width: 100%;
-    height: 100px;
-    /* background-color: rgb(35, 37, 39); */
-    bottom: 0;
-  }
+  text-align: center;
+  color: white;
+  width: 100%;
+  height: 100px;
+  /* background-color: rgb(35, 37, 39); */
+  bottom: 0;
+}
+
+

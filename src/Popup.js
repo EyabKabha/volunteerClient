@@ -29,7 +29,7 @@ export default class Popup extends React.Component {
                         <div>
                             {this.props.isJoinEvent ? <h5>Join Event</h5> : null}
                             {
-                                this.props.isMore ? <h5 id="header">Contact Info</h5> : null
+                                this.props.isMore ? <h5 id="header">Event Info</h5> : null
                             }
 
                             {this.props.eventPopUp ? <h5 id="header">Creation</h5>:null}

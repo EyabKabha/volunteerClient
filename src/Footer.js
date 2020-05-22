@@ -6,7 +6,7 @@ export default class Footer extends Component {
     render() {
         return (
             <Container className="p-0 m-0 mt-5" fluid>
-                <Navbar expand="lg" variant="dark" bg="dark">
+                <Navbar expand="lg" className="color-nav" variant="dark">
                     <Col>
                         <Navbar.Brand href="#">Settings</Navbar.Brand>
                     </Col>
