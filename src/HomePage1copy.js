@@ -20,7 +20,7 @@ export default class Homepage extends React.Component {
                 lastname: '',
             },
             isLogin: false,
-            ranks: 2,
+            ranks:2,
         }
     }
     onClickBtn = () => {
@@ -51,29 +51,26 @@ export default class Homepage extends React.Component {
                     <div className="col">
                         <Navbar className="color-nav pr-5" variant="dark" sticky="top" expand="lg">
                             <Navbar.Brand href="#home"><h2>Volunteer</h2></Navbar.Brand>
-                            <Navbar.Toggle aria-controls="basic-navbar-nav" />
-                            <Navbar.Collapse id="basic-navbar-nav">
-                                <Nav className="mr-auto" style={{ textAlign: 'center' }}>
-                                    <Nav.Link href="#home">Home</Nav.Link>
-                                    <Nav.Link href="#features">Dashboard</Nav.Link>
-                                    <Nav.Link href="#pricing">My events</Nav.Link>
-                                </Nav>
-                                {this.state.isLogin ? <h1 style={{ color: 'white' }}> {` Welcome, ${this.state.personalInfo.firstname} ${this.state.personalInfo.lastname}`}
-                                    <div className="mt-3">
-                                        <BeautyStars
-                                            value={this.state.ranks}
-                                            maxStars={5}
-                                        />
-                                        {/* <h6 style={{ marginTop: '15px' }}>Good job!</h6> */}
-                                    </div>
-                                </h1>
-                                    : <Form inline>
-                                        <Button href="/login" variant="outline-info">Log In</Button>&nbsp;&nbsp;
+                            <Nav className="mr-auto" style={{ textAlign: 'center' }}>
+                                <Nav.Link href="#home">Home</Nav.Link>
+                                <Nav.Link href="#features">Dashboard</Nav.Link>
+                                <Nav.Link href="#pricing">My events</Nav.Link>
+                            </Nav>
+                            {this.state.isLogin ? <h1 style={{ color: 'white' }}> {` Welcome, ${this.state.personalInfo.firstname} ${this.state.personalInfo.lastname}`}
+                                <div className="mt-3">
+                                    <BeautyStars
+                                        value={this.state.ranks}
+                                        maxStars={5}
+                                    />
+                                    {/* <h6 style={{ marginTop: '15px' }}>Good job!</h6> */}
+                                </div>
+                            </h1>
+                                : <Form inline>
+                                    <Button href="/login" variant="outline-info">Log In</Button>&nbsp;&nbsp;
                                     <Navbar.Text> <small>or</small></Navbar.Text>
-                                        <Nav.Link href="/signup/">SignUp</Nav.Link>
-                                    </Form>
-                                }
-                            </Navbar.Collapse>
+                                    <Nav.Link href="/signup/">SignUp</Nav.Link>
+                                </Form>
+                            }
                         </Navbar>
                     </div>
                 </div>
@@ -92,6 +89,7 @@ export default class Homepage extends React.Component {
                 {this.state.btnEvent && <Redirect to='/event/available' />}
                 {this.state.btnNewEvent && <Redirect to='/create/event/' />}
             </div >
+
         )
     }
 }

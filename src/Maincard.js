@@ -2,10 +2,13 @@ import React from 'react';
 import fetcher from './api/fetcher';
 import ReactDOM from 'react-dom';
 import Cards from './Cards';
+import './Styling/Allevents.css';
 import { CityContext } from './CityContext';
 import TextField from '@material-ui/core/TextField';
 import Autocomplete from '@material-ui/lab/Autocomplete';
 import { Redirect } from 'react-router';
+import BeautyStars from 'beauty-stars';
+import { Button, Navbar, Nav, NavDropdown, Form, FormControl } from 'react-bootstrap';
 class Maincard extends React.Component {
   constructor(props) {
     super(props);
@@ -60,11 +63,36 @@ class Maincard extends React.Component {
     const { cities } = this.context;
     return (
       <div>
-
+        <div className="row">
+          <div className="col">
+            <Navbar className="color-nav" variant="dark" sticky="top">
+              <Navbar.Brand href="#home">Voulnteer</Navbar.Brand>
+              <Nav className="mr-auto" style={{ textAlign: 'center' }}>
+                <Nav.Link href="#home">Home</Nav.Link>
+                <Nav.Link href="#features">Dashboard</Nav.Link>
+                <Nav.Link href="#pricing">My events</Nav.Link>
+              </Nav>
+              {this.state.isLogin ? <h1 style={{ color: 'white' }}> {` Welcome ${this.state.personalInfo.firstname} ${this.state.personalInfo.lastname}`}
+                <div className="mt-3">
+                  <BeautyStars
+                    value={this.state.ranks}
+                    maxStars={5}
+                  />
+                </div>
+              </h1>
+                : <Form inline>
+                  <Button href="/login" variant="outline-info">Log In</Button>&nbsp;&nbsp;
+                                    <Navbar.Text> <small>or</small></Navbar.Text>
+                  <Nav.Link href="/signup/">SignUp</Nav.Link>
+                </Form>
+              }
+            </Navbar>
+          </div>
+        </div>
         <div class="row mt-3">
           <div class="col-md-3"></div>
           <div class="col-md-5">
-            <h3 class="text-center">all events</h3>
+            <h3 class="text-center">All events</h3>
           </div>
 
           <div class="col-md-3"></div>
@@ -73,7 +101,9 @@ class Maincard extends React.Component {
         <div class="container">
           <div class="row ml-5">
             <div class="col-sm mb-2">
-              <button type="button" class="btn btn-warning" onClick={this.newEvent}>Add Event</button>
+              <button type="button" class="btn" id="addeventbtn" onClick={this.newEvent}>+ Add Event</button>
+              <br />
+              <button id="backbtn" type="button" class="btn btn-light mt-2" onClick={this.backNewEvent}>Back</button>
             </div>
             <div class="col-sm">
 
@@ -85,13 +115,8 @@ class Maincard extends React.Component {
                 getOptionLabel={(city) => city.name}
                 onSelect={this.onChangeHandler}
                 renderInput={(params) => <TextField autocomplete="on" {...params} size='small' className="form-control mb-2" variant="outlined" name="city" placeholder="Search By City" value={this.state.searchInput.city} onChange={this.onChangeHandler} />} />
+              <button type="button" id="searchbtn" class="btn btn-block" onClick={this.onClickSearch}>Search</button>
 
-              <button type="button" class="btn btn-warning" onClick={this.onClickSearch}>Search</button>
-              <div>
-              </div>
-              <div>
-                <button type="button" class="btn btn-warning mt-2" onClick={this.backNewEvent}>Back</button>
-              </div>
             </div>
             {this.state.newEventClicked && <Redirect to="/create/event/" />}
             {this.state.onClickBackNewEvent && <Redirect to="/" />}

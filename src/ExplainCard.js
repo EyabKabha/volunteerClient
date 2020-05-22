@@ -10,12 +10,12 @@ export default class ExplainCard extends Component {
     render() {
         return (
             <div className="row mt-5 justify-content-center">
-                <div className="col-8">
+                <div className="col-5">
                     <div className="row">
                         <div className="col-2">
-                             <Image src={this.props.src} id="eventlogo"/>
+                            <Image src={this.props.src} id="eventlogo" />
                         </div>
-                        <div className="col-6">
+                        <div className="col-8">
                             <h1>{this.props.header}</h1>
                             <p>{this.props.desc}</p>
                         </div>
