@@ -9,12 +9,13 @@ import Autocomplete from '@material-ui/lab/Autocomplete';
 import { Redirect } from 'react-router';
 import BeautyStars from 'beauty-stars';
 import { Button, Navbar, Nav, NavDropdown, Form, FormControl } from 'react-bootstrap';
+import NavbarWizard from './NavbarWizard';
 class Maincard extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       dataEvents: [],
-      images: ['images/street.jpg'],
+      images: ['images/street.jpg', 'images/Eid3.jpg', 'images/hospital.jpg', 'images/snazing.jpg', 'images/show.jpg', 'images/plant.jpg'],
       newEventClicked: false,
       onClickSearch: false,
       onClickBackNewEvent: false,
@@ -65,28 +66,7 @@ class Maincard extends React.Component {
       <div>
         <div className="row">
           <div className="col">
-            <Navbar className="color-nav" variant="dark" sticky="top">
-              <Navbar.Brand href="#home">Voulnteer</Navbar.Brand>
-              <Nav className="mr-auto" style={{ textAlign: 'center' }}>
-                <Nav.Link href="#home">Home</Nav.Link>
-                <Nav.Link href="#features">Dashboard</Nav.Link>
-                <Nav.Link href="#pricing">My events</Nav.Link>
-              </Nav>
-              {this.state.isLogin ? <h1 style={{ color: 'white' }}> {` Welcome ${this.state.personalInfo.firstname} ${this.state.personalInfo.lastname}`}
-                <div className="mt-3">
-                  <BeautyStars
-                    value={this.state.ranks}
-                    maxStars={5}
-                  />
-                </div>
-              </h1>
-                : <Form inline>
-                  <Button href="/login" variant="outline-info">Log In</Button>&nbsp;&nbsp;
-                                    <Navbar.Text> <small>or</small></Navbar.Text>
-                  <Nav.Link href="/signup/">SignUp</Nav.Link>
-                </Form>
-              }
-            </Navbar>
+            <NavbarWizard></NavbarWizard>
           </div>
         </div>
         <div class="row mt-3">
